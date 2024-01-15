@@ -37,7 +37,7 @@ const primitiveMapType: Record<DefaultPrismaFieldType, string> = {
 
 export type PrimitiveMapTypeKeys = keyof typeof primitiveMapType
 export type PrimitiveMapTypeValues =
-	typeof primitiveMapType[PrimitiveMapTypeKeys]
+	(typeof primitiveMapType)[PrimitiveMapTypeKeys]
 
 export interface SwaggerDecoratorParams {
 	isArray?: boolean
@@ -318,9 +318,19 @@ export class PrismaConvertor {
 		}
 
 		return [
-			...models.map((model) =>
-				this.getClass({ model, useGraphQL: this.config.useGraphQL }),
-			),
+			...models.map((model) => {
+				if (this.config.optionalRelationFields) {
+					model.fields.forEach((field) => {
+						if (!!field.relationName) {
+							field.isRequired = false
+						}
+					})
+				}
+				return this.getClass({
+					model,
+					useGraphQL: this.config.useGraphQL,
+				})
+			}),
 			// mongodb Types support
 			...this.dmmf.datamodel.types.map((model) =>
 				this.getClass({

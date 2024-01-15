@@ -29,6 +29,10 @@ export const PrismaClassGeneratorOptions = {
 		desc: 'separate relation fields',
 		defaultValue: false,
 	},
+	optionalRelationFields: {
+		desc: 'optional relation fields',
+		defaultValue: false,
+	},
 	useSwagger: {
 		desc: 'use swagger decorstor',
 		defaultValue: true,
