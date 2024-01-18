@@ -9,7 +9,8 @@ export class ClassComponent extends BaseComponent implements Echoable {
 	relationTypes?: string[]
 	enumTypes?: string[] = []
 	extra?: string = ''
-	types?: string[]
+	typesTypes?: string[]
+	prismaTypes?: string[]
 
 	echo = () => {
 		const fieldContent = this.fields.map((_field) => _field.echo())
