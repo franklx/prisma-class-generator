@@ -28,7 +28,7 @@ const primitiveMapType: Record<DefaultPrismaFieldType, string> = {
 	String: 'string',
 	DateTime: 'Date',
 	Boolean: 'boolean',
-	Json: 'JsonValue',
+	Json: 'Prisma.JsonValue',
 	BigInt: 'BigInt',
 	Float: 'number',
 	Decimal: 'number',
@@ -165,7 +165,7 @@ export class PrismaConvertor {
 		let type = this.getPrimitiveMapTypeFromDMMF(dmmfField)
 		if (type && type !== 'any') {
 			options.type =
-				type === 'JsonValue' ? 'Object' : capitalizeFirst(type)
+				type === 'Prisma.JsonValue' ? 'Object' : capitalizeFirst(type)
 			decorator.params.push(options)
 			return decorator
 		}
@@ -234,7 +234,7 @@ export class PrismaConvertor {
 				.filter(
 					(field) => field.kind == 'scalar' && field.type == 'Json',
 				)
-				.map((v) => 'JsonValue'),
+				.map((v) => 'Prisma'),
 		)
 
 		const enums = model.fields.filter((field) => field.kind === 'enum')
